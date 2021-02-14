@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XMeme | Mayank Aggarwal</title>
+    <title>Edit Meme | Mayank Aggarwal</title>
     <link rel="shortcut icon" type="image/jpg" href="icon.JPG"/>
     <link rel="stylesheet" href="styles.css">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
@@ -32,23 +32,32 @@
         </div>
     </nav>
 
-    <section class="home" id="home">
+    <div class="add-meme">
         <div class="max-width">
-            <div class="home-content">
-                <!-- <div class="text-1">Hello, my name is</div> -->
-                <div class="text-2">Have a meme ?</div>
-                <div class="text-3">Click to add your <span>Meme</span></div>
-            </div>
-            <div class="add-button"><a href="meme.htm"><i class="fas fa-plus"></i> <span>ADD Meme</span> </a></div>
-            
-            <!-- <h1>Have a meme ?</h1> -->
+            <form id="edit-form" class="edit-form">
+                <h1>Edit Meme</h1>
+    
+                <div class="form-field">
+                    <label for="caption">Caption:</label>
+                    <input type="text" name="caption" id="caption" autocomplete="off">
+                    <small></small>
+                </div>
+    
+                <div class="form-field">
+                    <label for="url">URL:</label>
+                    <input type="text" name="url" id="url" autocomplete="off">
+                    <small></small>
+                </div>
+    
+                <div class="submit">
+                    <input type="submit" value="Edit">
+                </div>
+            </form>
         </div>
+
         
-    </section>
-
-    <section id="posts">
-
-    </section>
+    </div>
+    
 
     <script src="script.js"></script>
 </body>
