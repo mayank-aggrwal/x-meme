@@ -88,7 +88,7 @@ async function addMeme(e) {
     }).then(response => response.json())
       .then(json => {
             console.log(json)
-            window.location.replace('http://localhost:5500/index.htm')
+            window.location.replace('https://mayank-aggrwal.github.io/x-meme/')
             // if(json.hasOwnProperty('errors')) {
             //     let displayText = `Error: ${json.errors.message}`
             //     result.innerHTML = ''
@@ -203,7 +203,7 @@ function deleteMeme(id) {
     }).then(response => response.json())
       .then(json => {
             console.log(json)
-            window.location.replace('http://localhost:5500/index.htm')
+            window.location.replace('https://mayank-aggrwal.github.io/x-meme/')
             // if(json.hasOwnProperty('errors')) {
             //     let displayText = `Error: ${json.errors.message}`
             //     result.innerHTML = ''
