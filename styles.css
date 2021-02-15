@@ -413,6 +413,7 @@
 }
 
 time {
+    display: inline-block;
     background: #fae7e1;
     color: #e03308;
     padding: 7px 16px;
@@ -421,14 +422,18 @@ time {
     font-family: 'Ubuntu';
     border-radius: 60px;
     align-self: right;
-    margin-left: 15px;
+    margin-top: 6px;
+    /* margin-left: 15px; */
 }
 
 .right p {
+    
     padding-top: 15px;
+    overflow-wrap: normal;
 }
 
 .right p span {
+    display: inline-block;
     background: #fae7e1;
     color: #e03308;
     padding: 7px 16px;
@@ -437,6 +442,7 @@ time {
     font-family: 'Ubuntu';
     border-radius: 60px;
     align-self: right;
+    margin-right: 15px;
 }
 
 
