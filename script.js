@@ -15,14 +15,77 @@ $(document).ready(function() {
         $('.menu-btn i').toggleClass("active");
     })
 
+    
+
+
+
+
+
 })
+
+
+// timeAgo Function
+function timeAgo(selector) {
+
+    var templates = {
+        prefix: "",
+        suffix: " ago",
+        seconds: "less than a minute",
+        minute: "about a minute",
+        minutes: "%d minutes",
+        hour: "about an hour",
+        hours: "about %d hours",
+        day: "a day",
+        days: "%d days",
+        month: "about a month",
+        months: "%d months",
+        year: "about a year",
+        years: "%d years"
+    };
+    var template = function (t, n) {
+        return templates[t] && templates[t].replace(/%d/i, Math.abs(Math.round(n)));
+    };
+
+    var timer = function (time) {
+        if (!time) return;
+        time = time.replace(/\.\d+/, ""); // remove milliseconds
+        time = time.replace(/-/, "/").replace(/-/, "/");
+        time = time.replace(/T/, " ").replace(/Z/, " UTC");
+        time = time.replace(/([\+\-]\d\d)\:?(\d\d)/, " $1$2"); // -04:00 -> -0400
+        time = new Date(time * 1000 || time);
+
+        var now = new Date();
+        var seconds = ((now.getTime() - time) * .001) >> 0;
+        var minutes = seconds / 60;
+        var hours = minutes / 60;
+        var days = hours / 24;
+        var years = days / 365;
+
+        return templates.prefix + (
+        seconds < 45 && template('seconds', seconds) || seconds < 90 && template('minute', 1) || minutes < 45 && template('minutes', minutes) || minutes < 90 && template('hour', 1) || hours < 24 && template('hours', hours) || hours < 42 && template('day', 1) || days < 30 && template('days', days) || days < 45 && template('month', 1) || days < 365 && template('months', days / 30) || years < 1.5 && template('year', 1) || template('years', years)) + templates.suffix;
+    };
+
+    var elements = document.getElementsByClassName('timeago');
+    for (var i in elements) {
+        var $this = elements[i];
+        if (typeof $this === 'object') {
+            $this.innerHTML = timer($this.getAttribute('title') || $this.getAttribute('datetime'));
+        }
+    }
+    // update time every minute
+    setTimeout(timeAgo, 60000);
+
+}
+
+
+
 posts = document.getElementById('posts')
 
 serverUrl = "https://damp-ridge-18897.herokuapp.com/"
 
 function func(obj) {
     // console.log(obj.name, obj.url, obj.caption)
-    posts.innerHTML += getCard(obj.name, obj.caption, obj.url, obj._id)
+    posts.innerHTML += getCard(obj.name, obj.caption, obj.url, obj.date, obj._id)
 }
 
 window.onload = async function() {
@@ -35,6 +98,7 @@ window.onload = async function() {
             console.log(json)
             
             json.forEach(func)
+            timeAgo()
             
       })
       .catch(err => console.log(err));
@@ -170,7 +234,8 @@ form.addEventListener('submit', addMeme)
 //       })
 //       .catch(err => console.log(err));
 // }
-function getCard(name, caption, Url, id) {
+function getCard(name, caption, Url, d, id) {
+    creationDate = new Date(d)
     text = `
     <section class="about" id="` + id + `">
         <div class="max-width">
@@ -181,17 +246,17 @@ function getCard(name, caption, Url, id) {
                     </div>
                     <div class="column right">
                         <div class="text">` + caption + `</div>
-                        <p>Posted by : ` + name + `</p>
+                        <p><span>Posted by : ` + name + `</span><time class="timeago" datetime="` + creationDate.toISOString() + `"></time></p>
                         <a href="edit.htm"><i class="fas fa-user-edit"></i><span>Edit</span></a>
                         <a href="#" id="` + id + `" onClick="deleteMeme(this.id)"><i class="fas fa-trash"></i><span>Delete</span></a>
                         
                     </div>
-                    
                 </div>
             </div>
         </div>
     </section>
     `
+    // <p><span>Posted by : Mayank</span><time class="timeago" datetime="2021-02-15T09:58:06.202Z"></time></p>
     return text
 }
 function deleteMeme(id) {
@@ -218,3 +283,5 @@ function deleteMeme(id) {
       })
       .catch(err => console.log(err));
 }
+
+
